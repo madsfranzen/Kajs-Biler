@@ -3,12 +3,13 @@ package gui;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-import java.awt.*;
-
 public class KajsBilerGui extends Application {
+
+    private TextField txfSøg = new TextField();
 
     @Override
     public void start(Stage stage) {
@@ -26,8 +27,6 @@ public class KajsBilerGui extends Application {
             }
         });
     }
-
-    private TextField txfSøg = new TextField();
 
     // -------------------------------------------------------------------------
 
