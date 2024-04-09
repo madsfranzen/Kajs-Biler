@@ -37,7 +37,7 @@ public class KajsBilerGui extends Application {
         pane.setVgap(10);
         pane.setPadding(new Insets(10));
 
-        //pane.add(txfSøg, 0, 0);
+        pane.add(txfSøg, 0, 0);
 
     }
 }
