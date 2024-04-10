@@ -50,9 +50,7 @@ public class KajsBilerGui extends Application {
             if (controller.checkLogin(txfUsername.getText(), pswPassword.getText())) {
                 window.setScene(mainScene);
             } else {
-                loginPane.add(lblWrongPassword, 0, 2);
-                txfUsername.setText("");
-                pswPassword.setText("");
+                btnLoginAction();
             }
         });
     }
@@ -91,12 +89,8 @@ public class KajsBilerGui extends Application {
 
     private void btnLoginAction() {
         // Checks for correct username/password and changes scene if correct
-        if (controller.checkLogin(txfUsername.getText(), pswPassword.getText())) {
-            window.setScene(mainScene);
-        } else {
-            loginPane.add(lblWrongPassword, 0, 2);
-            txfUsername.setText("");
-            pswPassword.setText("");
-        }
+        loginPane.add(lblWrongPassword, 0, 2);
+        txfUsername.setText("");
+        pswPassword.setText("");
     }
 }
