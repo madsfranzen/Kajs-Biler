@@ -46,15 +46,7 @@ public class KajsBilerGui extends Application {
         stage.setScene(loginScene);
         stage.show();
 
-        btnLogin.setOnAction(event -> {
-            if (controller.checkLogin(txfUsername.getText(), pswPassword.getText())) {
-                window.setScene(mainScene);
-            } else {
-                loginPane.add(lblWrongPassword, 0, 2);
-                txfUsername.setText("");
-                pswPassword.setText("");
-            }
-        });
+        btnLogin.setOnMouseClicked(event -> btnLoginAction());
     }
 
     // --------------------------- M A I N - W I N D O W ---------------------------------
