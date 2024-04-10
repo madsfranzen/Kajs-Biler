@@ -10,10 +10,10 @@ public class Storage {
     ArrayList<Prisgruppe> prisgrupper = new ArrayList<>();
 
     public void addKunde(Kunde kunde) {
-
+        kunder.add(kunde);
     }
 
     public void addPrisgruppe(Prisgruppe prisgruppe) {
-
+        prisgrupper.add(prisgruppe);
     }
 }

@@ -1,6 +1,7 @@
 package gui;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -8,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -50,9 +52,24 @@ public class KajsBilerGui extends Application {
             if (controller.checkLogin(txfUsername.getText(), pswPassword.getText())) {
                 window.setScene(mainScene);
             } else {
-                btnLoginAction();
+                wrongPassword();
             }
         });
+
+        pswPassword.setOnAction(event -> {
+            if (controller.checkLogin(txfUsername.getText(), pswPassword.getText())) {
+                window.setScene(mainScene);
+            } else {
+                wrongPassword();
+            }
+        });
+
+        /*PasswordField.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                System.out.println("enter key clicked");
+            }
+        });*/
     }
 
     // --------------------------- M A I N - W I N D O W ---------------------------------
@@ -87,8 +104,8 @@ public class KajsBilerGui extends Application {
     }
 
 
-    private void btnLoginAction() {
-        // Checks for correct username/password and changes scene if correct
+    private void wrongPassword() {
+        // If wrong Username or Password
         loginPane.add(lblWrongPassword, 0, 2);
         txfUsername.setText("");
         pswPassword.setText("");
