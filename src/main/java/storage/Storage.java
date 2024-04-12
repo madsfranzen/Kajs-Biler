@@ -18,7 +18,7 @@ public class Storage {
     public Storage() throws IOException {
     }
 
-    // ----------------------------- B I L E R ----------------------------------------
+    //==================================== B I L E R =====================================//
 
 
     public static void loadBilerDB() throws IOException, ClassNotFoundException {
@@ -29,28 +29,28 @@ public class Storage {
     }
 
     public static void opretBil(Bil bil) throws IOException {
+        bilerDB.add(bil);
+        saveBiler();
+    }
+
+    public static void saveBiler() throws IOException {
         FileOutputStream fos = new FileOutputStream(bilerTxt);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
-        bilerDB.add(bil);
         oos.writeObject(bilerDB);
         oos.flush();
         oos.close();
     }
 
     public static void removeBil(Bil bil, int index) throws IOException {
-        FileOutputStream fos = new FileOutputStream(bilerTxt);
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
         bilerDB.remove(index);
-        oos.writeObject(bilerDB);
-        oos.flush();
-        oos.close();
+        saveBiler();
     }
 
     public static ArrayList getBiler() {
         return bilerDB;
     }
 
-    // ----------------------------- K U N D E R ------------------------------------
+    //=================================== K U N D E R ==================================//
 
     public static void loadKunderDB() throws IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream(kunderTxt);
