@@ -9,30 +9,15 @@ import java.io.IOException;
 
 public class KajsBilerApp {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-
-//        Bil bil1 = new Bil("DK123456", "Toyota", "Yaris", true);
-//        Bil bil2 = new Bil("AD325432", "Ford", "Mustang", true);
-//        Bil bil3 = new Bil("KK412293", "Ford", "Mondeo", true);
-//        Bil bil4 = new Bil("FG774342", "Citroen", "Cactus", true);
-//        Bil bil5 = new Bil("CC141566", "Nissan", "Skyline", true);
-//
-//        Controller.opretBil(bil1);
-//        Controller.opretBil(bil2);
-//        Controller.opretBil(bil3);
-//        Controller.opretBil(bil4);
-//        Controller.opretBil(bil5);
-
-
         // INITIALIZE DATABASE
+        initStorage();
+
+        Application.launch(KajsBilerGui.class);
+    }
+
+    public static void initStorage() throws IOException,ClassNotFoundException {
         Controller.loadBilerDB();
-
-
-//        Controller.getBiler().get(0).setStatus(false);
-//        Udlejning jeppe = new Udlejning();
-//        Controller.getBiler().get(0).createUdlejning(jeppe);
-
         Controller.printBiler();
         Controller.saveBiler();
-        Application.launch(KajsBilerGui.class);
     }
 }
