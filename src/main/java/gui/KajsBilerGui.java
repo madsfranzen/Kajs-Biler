@@ -21,14 +21,13 @@ public class KajsBilerGui extends Application {
     Scene mainScene, loginScene;
     GridPane mainPane = new GridPane();
     GridPane loginPane = new GridPane();
-
     // LOGIN TING
     Label lblWrongPassword = new Label("Forkert brugernavn/kodeord");
+    private Controller controller = new Controller();
     private TextField txfUsername = new TextField();
     private PasswordField pswPassword = new PasswordField();
     private TextField txfSøg = new TextField();
     private Button btnLogin = new Button("Login");
-    private Controller controller = new Controller();
 
     @Override
     public void start(Stage stage) {
@@ -63,16 +62,9 @@ public class KajsBilerGui extends Application {
                 wrongPassword();
             }
         });
-
-        /*PasswordField.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                System.out.println("enter key clicked");
-            }
-        });*/
     }
 
-    // --------------------------- M A I N - W I N D O W ---------------------------------
+    // ============================= M A I N - W I N D O W =============================
 
     private void initContent(GridPane mainPane, GridPane loginPane) {
 
@@ -86,7 +78,7 @@ public class KajsBilerGui extends Application {
         mainPane.add(lblHello, 0, 1);
         mainPane.setAlignment(Pos.CENTER);
 
-        // ----------------------------- L O G I N ----------------------------------------
+        // ================================= L O G I N =================================
 
         loginPane.setGridLinesVisible(false);
         loginPane.setHgap(10);
