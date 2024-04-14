@@ -1,7 +1,6 @@
 package gui;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,8 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -73,7 +70,7 @@ public class KajsBilerGui extends Application {
 
     private void initContent(GridPane mainPane, GridPane loginPane) {
         BorderPane pane = new BorderPane();
-        initMainPane(mainPane);
+        initContent(pane);
 
         // ================================= L O G I N =================================
 
@@ -96,6 +93,25 @@ public class KajsBilerGui extends Application {
 
     private void initMainPane(GridPane mainPane) {
         //pane.setCenter(mainPane);
+        mainPane.setGridLinesVisible(true);
+        mainPane.setHgap(10);
+        mainPane.setVgap(10);
+        mainPane.setPadding(new Insets(10));
+
+        Label lblHello = new Label("Hello");
+        mainPane.add(txfSøg, 0, 0);
+        mainPane.add(lblHello, 0, 1);
+        mainPane.setAlignment(Pos.CENTER);
+    }
+
+    private void initContent(BorderPane pane) {
+        GridPane mainPane = new GridPane();
+        this.initMainCenterPane(mainPane);
+        pane.setCenter(mainPane);
+
+    }
+
+    private void initMainCenterPane(GridPane pane) {
         mainPane.setGridLinesVisible(true);
         mainPane.setHgap(10);
         mainPane.setVgap(10);
