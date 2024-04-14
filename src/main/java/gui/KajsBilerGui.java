@@ -18,8 +18,6 @@ public class KajsBilerGui extends Application {
 
     Stage window;
     Scene mainScene, loginScene;
-    GridPane mainPane = new GridPane();
-    GridPane loginPane = new GridPane();
     // LOGIN TING
     private Controller controller = new Controller();
     private TextField txfUsername = new TextField();
@@ -34,10 +32,14 @@ public class KajsBilerGui extends Application {
     public void start(Stage stage) {
         window = stage;
         stage.setTitle("Kajs Biler");
-        BorderPane borderPane = new BorderPane();
-        this.initContent(mainPane, loginPane);
+        BorderPane pane = new BorderPane();
+        this.initContent(pane);
 
-        Scene mainScene = new Scene(mainPane);
+        GridPane mainPane = new GridPane();
+        GridPane loginPane = new GridPane();
+        //this.initContent(loginPane);
+
+        Scene mainScene = new Scene(pane);
         Scene loginScene = new Scene(loginPane);
 
         stage.setScene(loginScene);
@@ -68,7 +70,7 @@ public class KajsBilerGui extends Application {
 
     // ============================= M A I N - W I N D O W =============================
 
-    private void initContent(GridPane mainPane, GridPane loginPane) {
+    private void initContent(GridPane loginPane) {
         BorderPane pane = new BorderPane();
         initContent(pane);
 
@@ -92,7 +94,6 @@ public class KajsBilerGui extends Application {
     }
 
     private void initMainPane(GridPane mainPane) {
-        //pane.setCenter(mainPane);
         mainPane.setGridLinesVisible(true);
         mainPane.setHgap(10);
         mainPane.setVgap(10);
@@ -112,21 +113,21 @@ public class KajsBilerGui extends Application {
     }
 
     private void initMainCenterPane(GridPane pane) {
-        mainPane.setGridLinesVisible(true);
-        mainPane.setHgap(10);
-        mainPane.setVgap(10);
-        mainPane.setPadding(new Insets(10));
+        pane.setGridLinesVisible(true);
+        pane.setHgap(10);
+        pane.setVgap(10);
+        pane.setPadding(new Insets(10));
 
         Label lblHello = new Label("Hello");
-        mainPane.add(txfSøg, 0, 0);
-        mainPane.add(lblHello, 0, 1);
-        mainPane.setAlignment(Pos.CENTER);
+        pane.add(txfSøg, 0, 0);
+        pane.add(lblHello, 0, 1);
+        pane.setAlignment(Pos.CENTER);
     }
 
 
     private void wrongPassword() {
         // If wrong Username or Password
-        loginPane.add(lblWrongPassword, 0, 2);
+        //loginPane.add(lblWrongPassword, 0, 2);
         txfUsername.setText("");
         pswPassword.setText("");
     }
