@@ -1,6 +1,7 @@
 package model.model;
 
-public class Udlejning {
+
+public class Udlejning implements java.io.Serializable {
     private final int aktuelUdlPeriode;
     private final double depositum;
     private final int kmStart;
