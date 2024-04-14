@@ -138,7 +138,7 @@ public class KajsBilerGui extends Application {
             try {
                 if (Controller.opretLogin(txfNewUsername.getText().toString().trim(), txfNewPassword.getText().toString().trim())
                 ) {
-                    window.setScene(loginScene);
+                    window.setScene(mainScene);
                 } else lblHeading.setText("Brugernavn eksisterer allerede!");
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -180,7 +180,6 @@ public class KajsBilerGui extends Application {
         mainPane.add(lblHello, 0, 1);
         mainPane.setAlignment(Pos.CENTER);
     }
-
 
     private void wrongPassword() {
         // If wrong Username or Password

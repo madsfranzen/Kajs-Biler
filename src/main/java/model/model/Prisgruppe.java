@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Prisgruppe implements Serializable {
+    private static final long serialVersionUID = 6529685098267757690L;
     private final ArrayList<Bil> biler = new ArrayList<>();
     private char gruppe;
     private double prisPrDag;
@@ -32,36 +33,14 @@ public class Prisgruppe implements Serializable {
         return biler;
     }
 
-    public char getGruppe() {
-        return gruppe;
+    @Override
+    public String toString() {
+        return "Prisgruppe{" +
+                "biler=" + biler +
+                ", gruppe=" + gruppe +
+                ", prisPrDag=" + prisPrDag +
+                ", prisPrTime=" + prisPrTime +
+                ", prisPrKm=" + prisPrKm +
+                '}';
     }
-
-    public void setGruppe(char gruppe) {
-        this.gruppe = gruppe;
-    }
-
-    public double getPrisPrDag() {
-        return prisPrDag;
-    }
-
-    public void setPrisPrDag(double prisPrDag) {
-        this.prisPrDag = prisPrDag;
-    }
-
-    public double getPrisPrTime() {
-        return prisPrTime;
-    }
-
-    public void setPrisPrTime(double prisPrTime) {
-        this.prisPrTime = prisPrTime;
-    }
-
-    public double getPrisPrKm() {
-        return prisPrKm;
-    }
-
-    public void setPrisPrKm(double prisPrKm) {
-        this.prisPrKm = prisPrKm;
-    }
-    
 }

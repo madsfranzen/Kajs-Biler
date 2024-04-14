@@ -83,7 +83,7 @@ public class Storage {
         ois.close();
     }
 
-    public static ArrayList<Prisgruppe> getPrisgruppeB() {
+    public static ArrayList<Prisgruppe> getPrisgrupper() {
         return prisgrupperDB;
     }
 

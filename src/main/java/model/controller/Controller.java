@@ -7,11 +7,12 @@ import storage.Storage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.ListIterator;
 
 public class Controller {
 
-    //==================================== B I L E R ====================================//
+    //================================== B I L E R ===================================//
 
     /**
      * Loader biler ind i ArrayListen bilerDB fra databasen.
@@ -59,11 +60,13 @@ public class Controller {
         }
     }
 
-    //================================================================================//
+    //================================== K U N D E ==================================//
 
     public void opretKunde() {
 
     }
+
+    //============================= P R I S G R U P P E R ===========================//
 
     public void opretPrisgruppe() {
 
@@ -72,20 +75,19 @@ public class Controller {
     public static void loadPrisGrupperDB() throws IOException, ClassNotFoundException {
         Storage.loadPrisgrupperDB();
     }
-
-    // virker ikke TODO
+    
     public static void printPrisGrupper() {
-        ListIterator li = Storage.getPrisgruppeB().listIterator();
+        ListIterator li = Storage.getPrisgrupper().listIterator();
         while (li.hasNext()) {
             System.out.println(li.next());
         }
     }
 
-    //=============================== L O G I N S ==============================//
+    //================================== L O G I N S =================================//
 
     public static boolean checkLogin(String username, String password) {
         for (Login login : Storage.getLoginsDB()) {
-            if (username.equals(login.getUsername().toString()) && password.equals(login.getPassword().toString())) {
+            if (username.equals(login.getUsername()) && password.equals(login.getPassword())) {
                 return true;
             }
         }
@@ -105,5 +107,12 @@ public class Controller {
 
     public static void loadLogins() throws IOException, ClassNotFoundException {
         Storage.loadLogins();
+    }
+
+    public static void printLogins() {
+        ListIterator li = Storage.getLoginsDB().listIterator();
+        while (li.hasNext()) {
+            System.out.println(li.next().toString());
+        }
     }
 }
