@@ -149,8 +149,7 @@ public class KajsBilerGui extends Application {
             }
         });
     }
-
-
+    
     // ====================================================================================
 
     private void initMainPane(GridPane mainPane) {
