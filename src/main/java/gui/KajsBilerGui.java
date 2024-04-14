@@ -4,11 +4,13 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.controller.Controller;
 
@@ -17,11 +19,7 @@ import java.io.IOException;
 public class KajsBilerGui extends Application {
 
     Stage window;
-    Scene mainScene, loginScene;
-    GridPane mainPane = new GridPane();
-    GridPane loginPane = new GridPane();
-    GridPane opretKontoPane = new GridPane();
-
+    Scene mainScene, loginScene, opretKontoScene;
     // LOGIN TING
     private Controller controller = new Controller();
     private TextField txfUsername = new TextField();
@@ -41,14 +39,21 @@ public class KajsBilerGui extends Application {
     public void start(Stage stage) {
         window = stage;
         stage.setTitle("Kajs Biler");
-        BorderPane borderPane = new BorderPane();
-        this.initContent(mainPane, loginPane, opretKontoPane);
-        Scene mainScene = new Scene(mainPane);
+        BorderPane pane = new BorderPane();
+        this.initContent(pane);
+
+        GridPane mainPane = new GridPane();
+        GridPane loginPane = new GridPane();
+        GridPane opretKontoPane = new GridPane();
+        //this.initContent(loginPane);
+
+        Scene mainScene = new Scene(pane);
         Scene loginScene = new Scene(loginPane);
         Scene opretKontoScene = new Scene(opretKontoPane);
 
         stage.setScene(loginScene);
         stage.show();
+
 
         mainScene.setOnMouseClicked(event -> {
             if (!txfSøg.equals(event.getSource())) {
@@ -75,7 +80,6 @@ public class KajsBilerGui extends Application {
             stage.setScene(opretKontoScene);
         });
     }
-
 
     // ============================= M A I N - W I N D O W =============================
 
@@ -170,20 +174,21 @@ public class KajsBilerGui extends Application {
     }
 
     private void initMainCenterPane(GridPane pane) {
-        mainPane.setGridLinesVisible(true);
-        mainPane.setHgap(10);
-        mainPane.setVgap(10);
-        mainPane.setPadding(new Insets(10));
+        pane.setGridLinesVisible(true);
+        pane.setHgap(10);
+        pane.setVgap(10);
+        pane.setPadding(new Insets(10));
 
         Label lblHello = new Label("Hello");
-        mainPane.add(txfSøg, 0, 0);
-        mainPane.add(lblHello, 0, 1);
-        mainPane.setAlignment(Pos.CENTER);
+        pane.add(txfSøg, 0, 0);
+        pane.add(lblHello, 0, 1);
+        pane.setAlignment(Pos.CENTER);
     }
+
 
     private void wrongPassword() {
         // If wrong Username or Password
-        loginPane.add(lblWrongPassword, 0, 2);
+        //loginPane.add(lblWrongPassword, 0, 2);
         txfUsername.setText("");
         pswPassword.setText("");
     }
