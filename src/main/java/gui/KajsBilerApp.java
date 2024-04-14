@@ -25,8 +25,11 @@ public class KajsBilerApp {
 
         // INITIALIZE DATABASE
         Controller.loadBilerDB();
-        
-        Controller.getBiler().get(0).setStatus(false);
+
+
+//        Controller.getBiler().get(0).setStatus(false);
+//        Udlejning jeppe = new Udlejning();
+//        Controller.getBiler().get(0).createUdlejning(jeppe);
 
         Controller.printBiler();
         Controller.saveBiler();
