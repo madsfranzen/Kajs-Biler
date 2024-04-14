@@ -36,8 +36,8 @@ public class Prisgruppe implements Serializable {
     @Override
     public String toString() {
         return "Prisgruppe{" +
-                "biler=" + biler +
-                ", gruppe=" + gruppe +
+                "gruppe=" + gruppe +
+                ", biler=" + biler +
                 ", prisPrDag=" + prisPrDag +
                 ", prisPrTime=" + prisPrTime +
                 ", prisPrKm=" + prisPrKm +
