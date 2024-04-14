@@ -84,7 +84,6 @@ public class Controller {
     //=============================== L O G I N S ==============================//
 
     public static boolean checkLogin(String username, String password) {
-
         for (Login login : Storage.getLoginsDB()) {
             if (username.equals(login.getUsername().toString()) && password.equals(login.getPassword().toString())) {
                 return true;
@@ -93,9 +92,15 @@ public class Controller {
         return false;
     }
 
-    public static void opretLogin(String username, String password) throws IOException {
+    public static boolean opretLogin(String username, String password) throws IOException {
+        for (Login login : Storage.getLoginsDB()) {
+            if (username.equals(login.getUsername())) {
+                return false;
+            }
+        }
         Login login = new Login(username, password);
         Storage.opretLogin(login);
+        return true;
     }
 
     public static void loadLogins() throws IOException, ClassNotFoundException {

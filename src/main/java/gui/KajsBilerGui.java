@@ -136,14 +136,14 @@ public class KajsBilerGui extends Application {
 
         btnOpretKontoConfirm.setOnAction(event -> {
             try {
-                Controller.opretLogin(txfNewUsername.getText().toString().trim(), txfNewPassword.getText().toString().trim());
+                if (Controller.opretLogin(txfNewUsername.getText().toString().trim(), txfNewPassword.getText().toString().trim())
+                ) {
+                    window.setScene(loginScene);
+                } else lblHeading.setText("Brugernavn eksisterer allerede!");
             } catch (IOException e) {
-                System.out.println(e);
-                ;
+                throw new RuntimeException(e);
             }
-            window.setScene(loginScene);
         });
-
     }
 
 
