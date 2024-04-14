@@ -1,21 +1,15 @@
 package model.controller;
 
 import model.model.Bil;
+import model.model.Login;
 import storage.Storage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ListIterator;
 
 public class Controller {
-
-    //==================================== L O G I N ====================================//
-
-    public static boolean checkLogin(String username, String password) {
-        if (username.equals("Mads") && password.equals("1234")) {
-            return true;
-        } else return false;
-    }
 
     //==================================== B I L E R ====================================//
 
@@ -73,5 +67,38 @@ public class Controller {
 
     public void opretPrisgruppe() {
 
+    }
+
+    public static void loadPrisGrupperDB() throws IOException, ClassNotFoundException {
+        Storage.loadPrisgrupperDB();
+    }
+
+    // virker ikke TODO
+    public static void printPrisGrupper() {
+        ListIterator li = Storage.getPrisgruppeB().listIterator();
+        while (li.hasNext()) {
+            System.out.println(li.next());
+        }
+    }
+
+    //=============================== L O G I N S ==============================//
+
+    public static boolean checkLogin(String username, String password) {
+
+        for (Login login : Storage.getLoginsDB()) {
+            if (username.equals(login.getUsername().toString()) && password.equals(login.getPassword().toString())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void opretLogin(String username, String password) throws IOException {
+        Login login = new Login(username, password);
+        Storage.opretLogin(login);
+    }
+
+    public static void loadLogins() throws IOException, ClassNotFoundException {
+        Storage.loadLogins();
     }
 }

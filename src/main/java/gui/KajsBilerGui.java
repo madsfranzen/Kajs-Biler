@@ -4,15 +4,15 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.controller.Controller;
+
+import java.io.IOException;
 
 public class KajsBilerGui extends Application {
 
@@ -20,6 +20,8 @@ public class KajsBilerGui extends Application {
     Scene mainScene, loginScene;
     GridPane mainPane = new GridPane();
     GridPane loginPane = new GridPane();
+    GridPane opretKontoPane = new GridPane();
+
     // LOGIN TING
     private Controller controller = new Controller();
     private TextField txfUsername = new TextField();
@@ -28,6 +30,11 @@ public class KajsBilerGui extends Application {
     private Button btnLogin = new Button("Login");
     private Button btnCreateProfile = new Button("Opret konto");
 
+    // NY KONTO
+    private TextField txfNewUsername = new TextField();
+    private TextField txfNewPassword = new TextField();
+    private Button btnOpretKontoConfirm = new Button("Opret Konto");
+
     private TextField txfSøg = new TextField();
 
     @Override
@@ -35,14 +42,13 @@ public class KajsBilerGui extends Application {
         window = stage;
         stage.setTitle("Kajs Biler");
         BorderPane borderPane = new BorderPane();
-        this.initContent(mainPane, loginPane);
-
+        this.initContent(mainPane, loginPane, opretKontoPane);
         Scene mainScene = new Scene(mainPane);
         Scene loginScene = new Scene(loginPane);
+        Scene opretKontoScene = new Scene(opretKontoPane);
 
         stage.setScene(loginScene);
         stage.show();
-
 
         mainScene.setOnMouseClicked(event -> {
             if (!txfSøg.equals(event.getSource())) {
@@ -64,11 +70,16 @@ public class KajsBilerGui extends Application {
                 wrongPassword();
             }
         });
+
+        btnCreateProfile.setOnAction(event -> {
+            stage.setScene(opretKontoScene);
+        });
     }
+
 
     // ============================= M A I N - W I N D O W =============================
 
-    private void initContent(GridPane mainPane, GridPane loginPane) {
+    private void initContent(GridPane mainPane, GridPane loginPane, GridPane opretKontoPane) {
         BorderPane pane = new BorderPane();
         initContent(pane);
 
@@ -89,7 +100,54 @@ public class KajsBilerGui extends Application {
         btnBox.getChildren().addAll(btnLogin, btnCreateProfile);
         loginPane.add(btnBox, 0, 3);
         btnBox.setAlignment(Pos.CENTER);
+
+
+        // ============================= O P R E T  K O N T O ===============================
+
+        opretKontoPane.setGridLinesVisible(false);
+        opretKontoPane.setHgap(10);
+        opretKontoPane.setVgap(10);
+        opretKontoPane.setPadding(new Insets(10));
+        opretKontoPane.setMinWidth(250);
+        opretKontoPane.setMinHeight(250);
+        opretKontoPane.setAlignment(Pos.CENTER);
+
+        Label lblHeading = new Label("Opret Ny Konto");
+        Label lblUsername = new Label("Brugernavn:");
+        Label lblPassword = new Label("Password:");
+        opretKontoPane.add(lblHeading, 0, 0);
+        opretKontoPane.add(lblUsername, 0, 1);
+        opretKontoPane.add(txfNewUsername, 0, 2);
+        opretKontoPane.add(lblPassword, 0, 3);
+        opretKontoPane.add(txfNewPassword, 0, 4);
+
+        Button btnCancel = new Button("Cancel");
+        HBox btnBoxOpretKonto = new HBox();
+        btnBoxOpretKonto.setSpacing(10);
+        btnBoxOpretKonto.getChildren().add(btnCancel);
+        btnBoxOpretKonto.getChildren().add(btnOpretKontoConfirm);
+        btnBox.setAlignment(Pos.CENTER);
+
+        opretKontoPane.add(btnBoxOpretKonto, 0, 5);
+
+        btnCancel.setOnAction(event -> {
+            window.setScene(loginScene);
+        });
+
+        btnOpretKontoConfirm.setOnAction(event -> {
+            try {
+                Controller.opretLogin(txfNewUsername.getText().toString().trim(), txfNewPassword.getText().toString().trim());
+            } catch (IOException e) {
+                System.out.println(e);
+                ;
+            }
+            window.setScene(loginScene);
+        });
+
     }
+
+
+    // ====================================================================================
 
     private void initMainPane(GridPane mainPane) {
         //pane.setCenter(mainPane);

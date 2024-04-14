@@ -2,24 +2,26 @@ package storage;
 
 import model.model.Bil;
 import model.model.Kunde;
+import model.model.Login;
 import model.model.Prisgruppe;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.ListIterator;
 
 public class Storage {
     private static File bilerTxt = new File("./src/main/resources/biler.rtf");
     private static File kunderTxt = new File("./src/main/resources/kunder.rtf");
+    private static File prisGrupperTxt = new File("./src/main/resources/prisGrupper.rtf");
+    private static File loginsTxt = new File("./src/main/resources/logins.rtf");
     private static ArrayList<Kunde> kunderDB = new ArrayList<>();
     private static ArrayList<Bil> bilerDB = new ArrayList<>();
-    private static ArrayList<Prisgruppe> prisgrupper = new ArrayList<>();
+    private static ArrayList<Prisgruppe> prisgrupperDB = new ArrayList<>();
+    private static ArrayList<Login> loginsDB = new ArrayList<>();
 
     public Storage() throws IOException {
     }
 
     //==================================== B I L E R =====================================//
-
 
     public static void loadBilerDB() throws IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream(bilerTxt);
@@ -63,13 +65,56 @@ public class Storage {
         return kunderDB;
     }
 
-
-    public void opretKunde(Kunde kunde) throws IOException {
+    public static void opretKunde(Kunde kunde) throws IOException {
         FileOutputStream fos = new FileOutputStream(kunderTxt);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         kunderDB.add(kunde);
         oos.writeObject(kunderDB);
         oos.flush();
         oos.close();
+    }
+
+    //=============================== P R I S G R U P P E R ==============================//
+
+    public static void loadPrisgrupperDB() throws IOException, ClassNotFoundException {
+        FileInputStream fis = new FileInputStream(prisGrupperTxt);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        prisgrupperDB = (ArrayList<Prisgruppe>) ois.readObject();
+        ois.close();
+    }
+
+    public static ArrayList<Prisgruppe> getPrisgruppeB() {
+        return prisgrupperDB;
+    }
+
+    public static void opretPrisGruppe(Prisgruppe prisgruppe) throws IOException {
+        FileOutputStream fos = new FileOutputStream(prisGrupperTxt);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        prisgrupperDB.add(prisgruppe);
+        oos.writeObject(prisgrupperDB);
+        oos.flush();
+        oos.close();
+    }
+
+    //=============================== L O G I N S ==============================//
+
+    public static void opretLogin(Login login) throws IOException {
+        FileOutputStream fos = new FileOutputStream(loginsTxt);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        loginsDB.add(login);
+        oos.writeObject(loginsDB);
+        oos.flush();
+        oos.close();
+    }
+
+    public static void loadLogins() throws IOException, ClassNotFoundException {
+        FileInputStream fis = new FileInputStream(loginsTxt);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        loginsDB = (ArrayList<Login>) ois.readObject();
+        ois.close();
+    }
+
+    public static ArrayList<Login> getLoginsDB() {
+        return loginsDB;
     }
 }

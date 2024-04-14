@@ -9,6 +9,7 @@ public class Bil implements java.io.Serializable {
     private final ArrayList<Værkstedsbesøg> værkstedsbesøg = new ArrayList<>();
     private final ArrayList<Udlejning> udlejninger = new ArrayList<>();
     private Boolean status;
+    private Prisgruppe prisgruppe;
 
     public Bil(String regNr, String mærke, String model, Boolean status) {
         this.regNr = regNr;
@@ -35,6 +36,10 @@ public class Bil implements java.io.Serializable {
 
     public String getRegNr() {
         return regNr;
+    }
+
+    public Prisgruppe getPrisgruppe() {
+        return prisgruppe;
     }
 
     public String getMærke() {
