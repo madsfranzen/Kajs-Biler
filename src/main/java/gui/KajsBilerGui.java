@@ -105,6 +105,7 @@ public class KajsBilerGui extends Application {
         loginPane.add(btnBox, 0, 3);
         btnBox.setAlignment(Pos.CENTER);
 
+
         // ============================= O P R E T  K O N T O ===============================
 
         opretKontoPane.setGridLinesVisible(false);
@@ -149,6 +150,7 @@ public class KajsBilerGui extends Application {
         });
     }
 
+
     // ====================================================================================
 
     private void initMainPane(GridPane mainPane) {
@@ -182,6 +184,7 @@ public class KajsBilerGui extends Application {
         pane.add(lblHello, 0, 1);
         pane.setAlignment(Pos.CENTER);
     }
+
 
     private void wrongPassword() {
         // If wrong Username or Password
