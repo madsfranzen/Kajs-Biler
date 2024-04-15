@@ -3,16 +3,19 @@ package gui;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTreeCell;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import model.controller.Controller;
+
+import java.util.TreeSet;
 
 public class KajsBilerGui extends Application {
 
@@ -26,31 +29,35 @@ public class KajsBilerGui extends Application {
     private Button btnLogin = new Button("Login");
     private Button btnCreateProfile = new Button("Opret konto");
 
-    private TextField txfSøg = new TextField();
+    private TextField txfSearch = new TextField();
 
     @Override
     public void start(Stage stage) {
+
         window = stage;
-        stage.setTitle("Kajs Biler");
+        window.setTitle("Kajs Biler");
         BorderPane pane = new BorderPane();
         this.initContent(pane);
 
-        GridPane mainPane = new GridPane();
-        GridPane loginPane = new GridPane();
-        //this.initContent(loginPane);
-
         Scene mainScene = new Scene(pane);
+
+        GridPane loginPane = new GridPane();
         Scene loginScene = new Scene(loginPane);
 
-        stage.setScene(loginScene);
-        stage.show();
-
+        window.setMaximized(true); // setting screen to maxsize at startup
+        window.setScene(mainScene);
+        window.show();
 
         mainScene.setOnMouseClicked(event -> {
-            if (!txfSøg.equals(event.getSource())) {
-                txfSøg.getParent().requestFocus();
+            if (!txfSearch.equals(event.getSource())) {
+                txfSearch.getParent().requestFocus();
             }
         });
+
+
+
+        // create login pop-up instead --------------
+
         btnLogin.setOnAction(event -> {
             if (controller.checkLogin(txfUsername.getText(), pswPassword.getText())) {
                 window.setScene(mainScene);
@@ -67,8 +74,6 @@ public class KajsBilerGui extends Application {
             }
         });
     }
-
-    // ============================= M A I N - W I N D O W =============================
 
     private void initContent(GridPane loginPane) {
         BorderPane pane = new BorderPane();
@@ -93,37 +98,127 @@ public class KajsBilerGui extends Application {
         btnBox.setAlignment(Pos.CENTER);
     }
 
-    private void initMainPane(GridPane mainPane) {
-        mainPane.setGridLinesVisible(true);
-        mainPane.setHgap(10);
-        mainPane.setVgap(10);
-        mainPane.setPadding(new Insets(10));
-
-        Label lblHello = new Label("Hello");
-        mainPane.add(txfSøg, 0, 0);
-        mainPane.add(lblHello, 0, 1);
-        mainPane.setAlignment(Pos.CENTER);
-    }
-
     private void initContent(BorderPane pane) {
-        GridPane mainPane = new GridPane();
-        this.initMainCenterPane(mainPane);
-        pane.setCenter(mainPane);
+        HBox topBox = new HBox();
+        this.initMainTopPane(topBox);
 
+        GridPane centerPane = new GridPane();
+        this.initMainCenterPane(centerPane);
+
+        GridPane leftPane = new GridPane();
+        this.initMainLeftPane(leftPane);
+
+        GridPane rightPane = new GridPane();
+        this.initmainRightPane(rightPane);
+
+        pane.setTop(topBox);
+        pane.setCenter(centerPane);
+        pane.setLeft(leftPane);
+        pane.setRight(rightPane);
     }
+
+    // region
+    // ============================= M A I N - W I N D O W =============================
+
+    // -------------------------------Top--------------------------------
+
+    private void initMainTopPane(HBox hbxButtons) {
+        hbxButtons.setPadding(new Insets(10));
+        hbxButtons.setSpacing(10);
+
+        Button btnTopSearch = new Button("Find biler");
+        Button btnLogin = new Button("Login");
+
+        hbxButtons.getChildren().addAll(btnTopSearch, btnLogin);
+    }
+
+    // ------------------------------Center------------------------------
 
     private void initMainCenterPane(GridPane pane) {
-        pane.setGridLinesVisible(true);
+        pane.setGridLinesVisible(false);
         pane.setHgap(10);
         pane.setVgap(10);
         pane.setPadding(new Insets(10));
 
-        Label lblHello = new Label("Hello");
-        pane.add(txfSøg, 0, 0);
-        pane.add(lblHello, 0, 1);
-        pane.setAlignment(Pos.CENTER);
+        pane.add(txfSearch, 0, 0);
+        txfSearch.setPromptText("Søg");
+        //pane.setAlignment(Pos.CENTER);
     }
 
+
+    // -------------------------------Left-------------------------------
+
+    private void initMainLeftPane(GridPane pane) {
+        pane.setGridLinesVisible(false);
+        pane.setHgap(10);
+        pane.setVgap(10);
+        pane.setPadding(new Insets(10));
+
+        Label lblFilter = new Label("Filter");
+        lblFilter.setUnderline(true);
+        lblFilter.setStyle("-fx-font: 14 arial;");
+        pane.add(lblFilter, 0, 0);
+
+        TreeItem<String> rootItem = new TreeItem<>("Filter");
+        TreeItem<String> category1 = new TreeItem<>("Prisgruppe");
+        category1.getChildren().addAll(new CheckBoxTreeItem<>("A"), new TreeItem<>("B"), new TreeItem<>("C"), new TreeItem<>("D"));
+        TreeItem<String> category2 = new TreeItem<>("Mærke");
+        category2.getChildren().addAll(new TreeItem<>("BMW"), new TreeItem<>("VW"));
+        CheckBoxTreeItem<String> category3 = new CheckBoxTreeItem<>("Årgang");
+        category3.getChildren().addAll(new TreeItem<>("2000"), new TreeItem<>("2010"));
+        rootItem.getChildren().addAll(category1, category2, category3);
+
+
+
+        TreeItem<String> rootItems = new TreeItem<>("Root");
+        TreeItem<String> aItem = new TreeItem<>("A");
+        TreeItem<String> a1Item = new CheckBoxTreeItem<>("A_1");
+        TreeItem<String> a11Item = new CheckBoxTreeItem<>("A_1_1");
+        TreeItem<String> a12Item = new CheckBoxTreeItem<>("A_1_2");
+        TreeItem<String> a111Item = new CheckBoxTreeItem<>("A_1_1_1");
+        TreeItem<String> a2Item = new CheckBoxTreeItem<>("A_2");
+        TreeItem<String> a21Item = new CheckBoxTreeItem<>("A_2_1");
+        TreeItem<String> a211Item = new CheckBoxTreeItem<>("A_2_1_1");
+        TreeItem<String> a22Item = new CheckBoxTreeItem<>("A_2_2");
+        TreeItem<String> bItem = new CheckBoxTreeItem<>("B");
+        TreeItem<String> cItem = new CheckBoxTreeItem<>("C");
+
+        aItem.getChildren().addAll(a1Item, a2Item);
+        a1Item.getChildren().addAll(a11Item, a12Item);
+        a11Item.getChildren().add(a111Item);
+
+        rootItems.getChildren().addAll(aItem, bItem, cItem);
+
+        TreeView<String> treeView = new TreeView<>(rootItems);
+        treeView.setShowRoot(true);
+
+        //treeView.setCellFactory(CheckBoxTreeCell.<String>forTreeView());
+
+        pane.add(treeView, 0, 1);
+    }
+
+    private Button btnSearch = new Button("Søg");
+
+
+    // ------------------------------Right-------------------------------
+
+    private void initmainRightPane(GridPane pane) {
+        pane.setGridLinesVisible(false);
+        pane.setHgap(10);
+        pane.setVgap(10);
+        pane.setPadding(new Insets(10));
+
+        pane.add(btnSearch, 0, 0);
+
+        Label lblLatestRentals = new Label("Seneste udlejninger:");
+        lblLatestRentals.setUnderline(true);
+        pane.add(lblLatestRentals, 0, 1);
+    }
+
+    // endregion
+
+
+    // if wrong password ------------------
 
     private void wrongPassword() {
         // If wrong Username or Password
