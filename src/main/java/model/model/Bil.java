@@ -3,12 +3,14 @@ package model.model;
 import java.util.ArrayList;
 
 public class Bil implements java.io.Serializable {
+    private static final long serialVersionUID = 9145795759751292644L;
     private final String regNr;
     private final String mærke;
     private final String model;
     private final ArrayList<Værkstedsbesøg> værkstedsbesøg = new ArrayList<>();
     private final ArrayList<Udlejning> udlejninger = new ArrayList<>();
     private Boolean status;
+    private Prisgruppe prisgruppe;
 
     public Bil(String regNr, String mærke, String model, Boolean status) {
         this.regNr = regNr;
@@ -35,6 +37,10 @@ public class Bil implements java.io.Serializable {
 
     public String getRegNr() {
         return regNr;
+    }
+
+    public Prisgruppe getPrisgruppe() {
+        return prisgruppe;
     }
 
     public String getMærke() {

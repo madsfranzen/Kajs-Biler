@@ -1,23 +1,16 @@
 package model.controller;
 
 import model.model.Bil;
+import model.model.Login;
 import storage.Storage;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
-public class Controller {
+public abstract class Controller {
 
-    //==================================== L O G I N ====================================//
-
-    public static boolean checkLogin(String username, String password) {
-        if (username.equals("Mads") && password.equals("1234")) {
-            return true;
-        } else return false;
-    }
-
-    //==================================== B I L E R ====================================//
+    //================================== B I L E R ===================================//
 
     /**
      * Loader biler ind i ArrayListen bilerDB fra databasen.
@@ -65,13 +58,59 @@ public class Controller {
         }
     }
 
-    //================================================================================//
+    //================================== K U N D E ==================================//
 
     public void opretKunde() {
 
     }
 
+    //============================= P R I S G R U P P E R ===========================//
+
     public void opretPrisgruppe() {
 
+    }
+
+    public static void loadPrisGrupperDB() throws IOException, ClassNotFoundException {
+        Storage.loadPrisgrupperDB();
+    }
+
+    public static void printPrisGrupper() {
+        ListIterator li = Storage.getPrisgrupper().listIterator();
+        while (li.hasNext()) {
+            System.out.println(li.next());
+        }
+    }
+
+    //================================== L O G I N S =================================//
+
+    public static boolean checkLogin(String username, String password) {
+        for (Login login : Storage.getLoginsDB()) {
+            if (username.equals(login.getUsername()) && password.equals(login.getPassword())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean opretLogin(String username, String password) throws IOException {
+        for (Login login : Storage.getLoginsDB()) {
+            if (username.equals(login.getUsername())) {
+                return false;
+            }
+        }
+        Login login = new Login(username, password);
+        Storage.opretLogin(login);
+        return true;
+    }
+
+    public static void loadLogins() throws IOException, ClassNotFoundException {
+        Storage.loadLogins();
+    }
+
+    public static void printLogins() {
+        ListIterator li = Storage.getLoginsDB().listIterator();
+        while (li.hasNext()) {
+            System.out.println(li.next().toString());
+        }
     }
 }

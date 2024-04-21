@@ -22,12 +22,10 @@ public class KajsBilerGui extends Application {
     Stage window;
     Scene mainScene, loginScene;
     // LOGIN TING
-    private Controller controller = new Controller();
     private TextField txfUsername = new TextField();
     private PasswordField pswPassword = new PasswordField();
     private Label lblWrongPassword = new Label("Forkert brugernavn/kodeord");
     private Button btnLogin = new Button("Login");
-    private Button btnCreateProfile = new Button("Opret konto");
 
     private TextField txfSearch = new TextField();
 
@@ -53,49 +51,6 @@ public class KajsBilerGui extends Application {
                 txfSearch.getParent().requestFocus();
             }
         });
-
-
-
-        // create login pop-up instead --------------
-
-        btnLogin.setOnAction(event -> {
-            if (controller.checkLogin(txfUsername.getText(), pswPassword.getText())) {
-                window.setScene(mainScene);
-            } else {
-                wrongPassword();
-            }
-        });
-
-        pswPassword.setOnAction(event -> {
-            if (controller.checkLogin(txfUsername.getText(), pswPassword.getText())) {
-                window.setScene(mainScene);
-            } else {
-                wrongPassword();
-            }
-        });
-    }
-
-    private void initContent(GridPane loginPane) {
-        BorderPane pane = new BorderPane();
-        initContent(pane);
-
-        // ================================= L O G I N =================================
-
-        loginPane.setGridLinesVisible(false);
-        loginPane.setHgap(10);
-        loginPane.setVgap(10);
-        loginPane.setPadding(new Insets(10));
-        loginPane.setMinWidth(250);
-        loginPane.setMinHeight(250);
-        loginPane.setAlignment(Pos.CENTER);
-
-        loginPane.add(txfUsername, 0, 0);
-        loginPane.add(pswPassword, 0, 1);
-        HBox btnBox = new HBox();
-        btnBox.setSpacing(10);
-        btnBox.getChildren().addAll(btnLogin, btnCreateProfile);
-        loginPane.add(btnBox, 0, 3);
-        btnBox.setAlignment(Pos.CENTER);
     }
 
     private void initContent(BorderPane pane) {
@@ -130,6 +85,8 @@ public class KajsBilerGui extends Application {
         Button btnLogin = new Button("Login");
 
         hbxButtons.getChildren().addAll(btnTopSearch, btnLogin);
+
+        btnLogin.setOnAction(event -> loginAction());
     }
 
     // ------------------------------Center------------------------------
@@ -190,9 +147,9 @@ public class KajsBilerGui extends Application {
         rootItems.getChildren().addAll(aItem, bItem, cItem);
 
         TreeView<String> treeView = new TreeView<>(rootItems);
-        treeView.setShowRoot(true);
+        treeView.setShowRoot(false);
 
-        //treeView.setCellFactory(CheckBoxTreeCell.<String>forTreeView());
+        treeView.setCellFactory(CheckBoxTreeCell.<String>forTreeView());
 
         pane.add(treeView, 0, 1);
     }
@@ -218,12 +175,15 @@ public class KajsBilerGui extends Application {
     // endregion
 
 
-    // if wrong password ------------------
+    // region # Actions #
+    // =============== ACTIONS ===================
 
-    private void wrongPassword() {
-        // If wrong Username or Password
-        //loginPane.add(lblWrongPassword, 0, 2);
-        txfUsername.setText("");
-        pswPassword.setText("");
+    private void loginAction() {
+        LoginWindow dialog = new LoginWindow("Login");
+        dialog.showAndWait();
+
+
     }
+
+    // endregion
 }
